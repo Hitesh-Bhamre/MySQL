@@ -1,0 +1,39 @@
+-- Replace Table cell value
+
+--MUMBAI_INDIAN
+
+CREATE TABLE MUMBAI_INDIAN(
+    ID VARCHAR(200) NOT NULL,
+    TEAM_NAME VARCHAR(200) NOT NULL,
+    CAPTAIN_NAME VARCHAR(200) NOT NULL,
+    YEAR VARCHAR(200) NOT NULL,
+    FANS_WANT VARCHAR(200) NOT NULL
+)
+
+
+INSERT INTO IPL.MUMBAI_INDIAN (
+    ID, TEAM_NAME, CAPTAIN_NAME, YEAR, FANS_WANT
+)
+VALUES
+('1', 'MI','Sachin Tendulkar','2008-2011','Yes'),
+('2', 'MI','Ricky Ponting','2012','Yes'),
+('3', 'MI','Rohit Sharma','2013-2023','Yes'),
+('4', 'MI','Hardik Pandya','2024','No');
+
+
+INSERT INTO IPL.MUMBAI_INDIAN (
+    ID, TEAM_NAME, CAPTAIN_NAME, YEAR, FANS_WANT
+)
+VALUES
+('4', 'MI','Hardik Pandya','2024','No');
+
+SELECT * FROM MUMBAI_INDIAN;
+
+update mumbai_indian 
+SET CAPTAIN_NAME = "Rohit Sharma"
+WHERE ID = 4;
+
+UPDATE MUMBAI_INDIAN
+SET CAPTAIN_NAME = "Hardik Pandya"
+WHERE ID = 4;
+
