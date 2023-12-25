@@ -34,3 +34,42 @@ AND SALARY < 50000;
 -- OR
 SELECT * FROM EMPLOYESS
 WHERE SALARY BETWEEN 10000 AND 50000;
+
+-- Q6
+-- Fetch only the first name from full name column
+
+SELECT SUBSTRING(FULL_NAME, 0, CHARINDEX(' ', FULL_NAME))
+FROM EMPLOYEES
+
+-- Q7
+-- Fetch Duplicate records from table
+
+SELECT EM_ID, DEPT, COUNT(*)
+FROM EMPLOYESS
+GROUP BY EM_ID, DEPT
+HAVING COUNT(*) > 1;
+
+-- Q8
+-- Remove Duplicate
+
+DELETE FROM EMPLOYEES
+WHERE EM_ID IN (
+    SELECT EM_ID, DEPT, COUNT(*)
+    FROM EMPLOYESS
+    GROUP BY EM_ID, DEPT
+    HAVING COUNT(*) > 1
+);
+
+-- Q9
+-- Create empty table with same structure as some other table
+-- not working
+SELECT * INTO NEWTABLE 
+FROM OLDTABLE 
+WHERE 1=0;
+
+-- Q10
+-- Fetch common records from two tables
+-- NEED TO CHECK
+SELECT * FROM TABLE1
+INTERSECT
+SELECT * FROM TABLE2
