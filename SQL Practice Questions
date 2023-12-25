@@ -1,0 +1,36 @@
+
+-- SQL Question Practice
+
+-- Q1 
+-- Increase income of all employees by 5% in a table
+
+UPDATE EMPLOYEES 
+SET INCOME = INCOME + (INCOME * 5.00/100.00);
+
+-- Q2
+-- Find names of employees starting with 'A'
+
+SELECT F_NAME FROM EMPLOYEES 
+WHERE F_NAME LIKE 'A%';
+
+-- Q3
+-- Find Number of Employees working in department 'ABC'
+
+SELECT COUNT(*) FROM EMPLOYESS
+WHERE DEPARTMENT_NAME = 'ABC'
+
+-- Q4
+-- Print details of employees whose first name ends with 'A' and contains 6 alphabets.
+
+SELECT * FROM EMPLOYEES
+WHERE FIRST_NAME LIKE '_____A';
+
+-- Q5
+-- Print details of employees whose salary lies between 10000 and 50000
+
+SELECT * FROM EMPLOYESS
+WHERE SALARY > 10000
+AND SALARY < 50000;
+-- OR
+SELECT * FROM EMPLOYESS
+WHERE SALARY BETWEEN 10000 AND 50000;
