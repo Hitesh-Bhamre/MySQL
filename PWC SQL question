@@ -1,0 +1,52 @@
+CREATE TABLE source(id INT, name VARCHAR(5));
+
+CREATE TABLE target(id INT, name VARCHAR(5));
+
+INSERT INTO source VALUES(1,'A'),(2,'B'),(3,'C'),(4,'D');
+
+INSERT INTO target VALUES(1,'A'),(2,'B'),(4,'X'),(5,'F');
+
+SELECT * FROM source;
+
+SELECT * FROM target;
+
+SELECT s.*, t.*
+FROM source AS s
+FULL OUTER JOIN target AS t 
+ON s.id=t.id
+WHERE s.name != t.name
+OR s.name IS NULL 
+OR t.name IS NULL;
+
+-- Method 1
+SELECT COALESCE(s.id,t.id) AS ID --, s.name, t.name
+, CASE
+	WHEN t.name IS NULL 
+	THEN 'new in source'
+	WHEN s.name IS NULL 
+	THEN 'new in target'
+	ELSE 'mismacth'
+	END AS COMMENT
+FROM source AS s
+FULL OUTER JOIN target AS t 
+ON s.id=t.id
+WHERE s.name != t.name
+OR s.name IS NULL 
+OR t.name IS NULL;
+
+-- Method 2
+WITH act as (
+	SELECT *, 'Source' AS table_name FROM source
+	UNION ALL
+	SELECT *, 'Target' AS table_name FROM target
+)
+SELECT Id --, COUNT(*) AS cnt, MIN(name) AS name_min, MAX(name) AS name_max, MIN(table_name) AS table_name_min, MAX(table_name) AS table_name_max
+, CASE 
+	WHEN MIN(name) != MAX(name) THEN 'Mismatch'
+	WHEN MIN(table_name) = 'source' THEN 'New in source'
+	ELSE 'New in target'
+	END AS Comment
+FROM act
+GROUP BY id
+HAVING COUNT(*) = 1
+OR (COUNT(*) =2 AND MIN(name) != MAX(name))
